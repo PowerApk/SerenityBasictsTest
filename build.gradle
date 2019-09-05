@@ -1,0 +1,41 @@
+defaultTasks 'clean','test','aggregate'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.7")     
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'                             
+
+dependencies {
+    testCompile 'net.serenity-bdd:serenity-core:2.0.7'                  
+    testCompile 'net.serenity-bdd:serenity-junit:2.0.9'                
+    testCompile('junit:junit:4.12')
+    testCompile('org.assertj:assertj-core:3.11.1')
+    testCompile('org.slf4j:slf4j-simple:1.7.25')
+    
+    
+	compile group: 'net.serenity-bdd', name: 'serenity-report-resources', version: '1.0.28'
+    
+    
+    compile 'net.serenity-bdd:serenity-core:2.0.7'
+    compile 'net.serenity-bdd:serenity-junit:2.0.9'
+    compile 'net.serenity-bdd:serenity-cucumber:1.9.19'
+    compile 'net.serenity-bdd:serenity-screenplay:2.0.9'
+    compile 'net.serenity-bdd:serenity-screenplay-webdriver:2.0.9'
+}
+gradle.startParameter.continueOnFailure = true 
+test.finalizedBy(aggregate)
